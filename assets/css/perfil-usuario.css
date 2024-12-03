@@ -1,0 +1,143 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    height: 100%;
+    color: #001d4f;
+}
+
+/* Contenedor principal */
+.profile-container {
+    max-width: 90%; /* Aumentamos el ancho a un 90% */
+    margin: 10px auto; /* Reducimos el margen superior e inferior */
+    padding: 15px; /* Reducimos el padding interno */
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Ajustamos el espacio entre los elementos */
+    margin-top: 7%; /* Reducimos el margen superior */
+}
+
+/* Distribución en dos columnas */
+.profile-grid {
+    display: flex;
+    gap: 20px;
+}
+
+/* Columna izquierda: Avatar */
+.avatar-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid #ccc;
+}
+
+/* Columna derecha: Información del usuario */
+.user-info-section {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.info-block {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.info-block h2 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+.info-block p {
+    margin: 0;
+    color: #666;
+}
+
+/* Artículos favoritos */
+.favorites {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.favorites h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+}
+
+/* Contenedor de los artículos favoritos */
+.favorites-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+.favorite-item {
+    background-color: white;
+    padding: 10px;
+    border-radius: 12px;
+    width: 30%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.favorite-item:hover {
+    transform: translateY(-10px);
+}
+
+.favorite-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    max-height: 120px;
+    object-fit: cover;
+}
+
+.favorite-item p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Botón */
+.my-items .button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    border-radius: 8px;
+    text-align: center;
+    transition: background-color 0.3s;
+    margin: 0 auto;
+    display: block;
+    max-width: 200px;
+}
+
+.my-items .button:hover {
+    background-color: #45a049;
+}

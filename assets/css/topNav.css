@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'Poppins';
+    src: url('../font/Poppins-ExtraLight.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+  }
+  @font-face {
+    font-family: 'Poppins bold';
+    src: url('../font/Poppins-Bold.ttf');
+  }
+/* Barra de navegación superior */
+.topnav {
+    color: #001d4f;
+    background-color: #FB9977;
+    width: 100%; /* Ocupa todo el ancho */
+    height: 15%; /* Altura fija */
+    display: flex;
+    align-items: center;
+    position: fixed; /* Barra fija en la parte superior */
+    top: 0; /* Posición superior */
+    left: 0; /* Inicio desde la izquierda */
+    z-index: 1000; /* Encima de otros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para estilo */
+    padding: 0 1rem; /* Espaciado horizontal */
+    gap: 33%;
+    overflow: hidden; /* Evita que contenido extra sobresalga */
+}
+
+/* Logo */
+.logo {
+    display: flex;
+    align-items: center; /* Centrado vertical */
+    height: 100%; /* Usa toda la altura de la barra */
+    width: 25%;
+}
+
+.logo img {
+    width: 40%; /* Mantén la proporción */
+}
+
+/* Menú de navegación */
+.menu {
+    display: flex; /* Flexbox para disposición horizontal */
+    flex-direction: row; /* Asegura disposición en fila */
+    gap: 10%; /* Espaciado entre enlaces */
+    align-items: center; /* Centra verticalmente los enlaces */
+    height: 100%; /* Usa toda la altura de la barra */
+    margin-right: 0%;
+}
+
+/* Estilo de los enlaces */
+.menu a {
+    color: #001d4f;
+    text-decoration: none; /* Sin subrayado */
+    font-size: 1.5rem; /* Tamaño de fuente fijo */
+    padding: 0.5rem; /* Espaciado interno */
+    line-height: 1.2; /* Altura fija del texto */
+    display: flex; /* Centrado interno */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    transition: background-color 0.3s ease, font-size 0.3s ease; /* Suaviza cambios */
+}
+
+/* Hover: Evita cambios bruscos de tamaño */
+.menu a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+    font-family: 'Poppins Bold';
+    background-color:#FB9977;/* Cambio de fondo suave */
+    font-size: 1.5rem; /* Mantén el tamaño constante */
+}
+
+

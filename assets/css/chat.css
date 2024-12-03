@@ -1,0 +1,167 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #001d4f;
+}
+
+.chat {
+    width: 65%;
+    position: fixed;
+    height: 100%;
+    margin-left: 35%;
+    background-color: white;
+    margin-top: 6%;
+    display: flex;
+    flex-direction: column;
+}
+
+.description {
+    height: 20%;
+    background-color: #FAC8A5;
+    padding: 10px;
+}
+
+.description img {
+    width: 15%;
+    float: left;
+    margin-right: 10px;
+}
+
+.description p {
+    margin-top: 10%;
+    float: left;
+}
+
+/* Corrección del nombre de la clase .mesages a .messages */
+.messages {
+    margin-top: 22%;
+    position: relative;
+    overflow-y: scroll;
+    margin-left: 10%;
+    width: 80%;
+    height: 80%; 
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.messages table {
+    width: 100%;
+}
+
+/* Estilo de los mensajes enviados */
+.msgInPut {
+    text-align: right;
+    padding: 1%;
+    border-radius: 5%;
+    background-color: #7a7cad;
+    margin-bottom: 2%;
+    float: left;
+    width: fit-content;
+    max-width: 70%;
+}
+
+.msgOutPut {
+    padding: 1%;
+    margin-right: 18%;
+    border-radius: 5%; 
+    background-color: #FAC8A5;
+    margin-bottom: 2%;
+    float: right;
+    width: fit-content;
+    max-width: 70%;
+}
+
+/* Estilo del formulario de entrada de mensajes */
+.input {
+    margin-left: 10%;
+    width: 80%;
+    position: fixed;
+    bottom: 3%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+}
+
+.input button {
+    border-radius: 50%;
+    padding: 10px;
+    border: none;
+    background-color: #7a7cad;
+    cursor: pointer;
+    color: white;
+}
+
+.input button:hover {
+    background-color: #6a6c8a;
+}
+
+.input input {
+    width: 85%;
+    padding: 10px;
+    border-radius: 10%;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* Estilos de los chats disponibles */
+.chatsAvailable {
+    position: fixed;
+    height: 100%;
+    overflow-y: scroll;
+    width: 30%;
+    margin-left: 1%;
+    margin-top: 5%;
+}
+
+.chatAvailable {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15%;
+}
+
+.chatAvailable:hover {
+    background-color: #e1e1e1;
+}
+
+.chatAvailable img {
+    width: 15%;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.chatAvailable p {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .chat {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .input {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .chatsAvailable {
+        width: 100%;
+        right: 0;
+        padding: 0;
+        top: auto;
+        height: auto;
+    }
+
+    .chatAvailable {
+        width: 100%;
+    }
+}

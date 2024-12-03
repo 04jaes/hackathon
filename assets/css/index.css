@@ -1,0 +1,346 @@
+@font-face {
+    font-family:Poppins-Extralight ;
+    src: url(../font/Poppins-ExtraLight.ttf);
+}
+@font-face {
+    font-family: Poppins-Bold;
+    src: url(../font/Poppins-Bold.ttf);
+}
+@font-face {
+    font-family: Articulat-Light;
+    src: url(../font/Fontspring-DEMO-articulatcf-light-BF64a38d8b23c4f.ttf);
+}
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    color: #001d4f;
+}
+/* Header */
+.header {
+    background-color: #FFB197;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Makes the header fixed at the top */
+    top: 0; /* Ensures it's pinned to the top of the viewport */
+    left: 0; /* Ensures it spans from the left */
+    right: 0; /* Ensures it spans to the right */
+    z-index: 1000; /* Ensures it stays above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visibility */
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+}
+
+.header .logo img {
+    height: 100px;
+    margin-right: 10px;
+}
+
+.header .logo span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header .nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #001D4F;
+    font-weight: bold;
+}
+
+.header .login-button {
+    background-color: #FFD4B8;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #001D4F;
+}
+
+/* Main Content */
+.main-content {
+    
+    /*background-color: #FFF6C9;*/
+    margin-top: 80px; /* Adjust based on the height of your header */
+    padding-left: 60px;
+    padding-right: 60px;
+    padding-top: 60px;
+    text-align: center;
+}
+
+.container{
+    margin-top: 50px;
+    margin-left: 5.5vw;
+    margin-right: 5.5vw;
+
+    height: 400px;
+    width: 400px;
+    border-radius: 15%;
+
+    text-align: center;
+    color: #001D4F;
+    font-family: Articulat-Light;
+    font-size: 80px;
+    float: left;
+    position: relative;
+}
+
+    /* slider */
+
+        /* Container for the slider */
+.slider-container {
+    
+    width: 800px;          /* Width of the visible area */
+    height: 400px;         /* Height of the container */
+    overflow: hidden;      /* Hide overflowing images */
+    margin: 50px auto;     /* Center horizontally */
+    position: relative;    /* Allows positioning if needed */
+        /*border: 1px solid black;*/
+    border-radius: 20px;
+}
+        
+        /* The slider holding all images */
+.slider {
+    display: flex;
+    width: calc(800px * 4 + 30px); /* Total width including margins */
+    animation: slide 15s infinite; /* Total animation time */
+}
+                
+        /* Styles for each image */
+.slider img {
+    width: 800px; /* Width of each image */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 10px; /* Space between images */
+}
+                
+        /* Keyframes for sliding effect */
+@keyframes slide {
+    0% { transform: translateX(0); }                   /* Show first image */
+    20% { transform: translateX(0); }                  /* Hold first image for 3 seconds */
+                    
+    25% { transform: translateX(-810px); }             /* Slide out first image (800px + 10px margin) */
+    45% { transform: translateX(-810px); }             /* Hold second image for 3 seconds */
+                    
+    50% { transform: translateX(-1620px); }            /* Slide out second image (2 * 810px) */
+    70% { transform: translateX(-1620px); }            /* Hold third image for 3 seconds */
+                    
+    75% { transform: translateX(-2430px); }            /* Slide out third image (3 * 810px) */
+    95% { transform: translateX(-2430px); }            /* Hold fourth image for 3 seconds */
+                    
+    100% { transform: translateX(0); }                 /* Reset to first image */
+}
+    /*slider*/   
+/*main content*/
+
+/* Section Styling */
+.about {
+    /*background-color: #FFF6C9; /* Matches the light yellow background */
+    padding: 60px 20px;
+    text-align: center;
+}
+
+/* Two-column Layout */
+.about-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Ensures responsiveness for smaller screens */
+}
+
+/* Text Content */
+.about-text {
+    width: 50%;
+    padding: 20px;
+    text-align: left;
+}
+
+.about-text h2 {
+    color: #0E223D;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.about-text p {
+    color: #0E223D;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Image Content */
+.about-image {
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.image-placeholder {
+    background-color: #FFF6C9;
+    color: #0E223D;
+    border: 2px dashed #FFD4B8;
+    padding: 50px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+/* section styling */
+
+/* Partners Section */
+.partners-section {
+    background-color: #FFF6C9; /* Light yellow */
+    text-align: center;
+    padding: 50px 20px;
+}
+  
+  /* Cards Container */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+  
+.card {
+    width: 150px;
+    height: 150px;
+    background-color: #0E223D; /* Navy blue */
+    border-radius: 15px; /* Rounded corners */
+}
+  
+  /* View All Button */
+.view-all-button {
+    background-color: transparent;
+    border: 2px solid #0E223D; /* Navy blue outline */
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0E223D;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+  
+.view-all-button:hover {
+    background-color: #0E223D; /* Navy blue background on hover */
+    color: #FFF6C9; /* Light yellow text on hover */
+}
+  
+/*partners section
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-section {
+        flex-direction: column; /* Stacks columns on small screens */
+    }
+
+    .about-text,
+    .about-image {
+        width: 100%; /* Full width for smaller screens */
+    }
+
+    .about-text {
+        text-align: center;
+    }
+}
+
+/*section*/
+
+/* Footer */
+
+
+
+/* Constellation Separator */
+.constellation-separator {
+    width: 100%;              /* Full width of the page */
+    height: 150px;            /* Adjust height as needed */
+    display: flex;            /* Center the image */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;      /* Center vertically */
+    margin: 20px 0;           /* Add spacing around the separator */
+}
+
+.constellation-image {
+    width: 50%;                /* Half the screen width */
+    height: auto;              /* Maintain aspect ratio */
+    object-fit: cover;         /* Ensure it fills the width without distortion */
+    opacity: 0.8;              /* Slight transparency for subtlety */
+}
+
+
+
+
+
+
+
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px; /* Increased padding for a larger container */
+    width: 400px;  /* Set a fixed width for the popup */
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #999;
+}
+
+.close:hover {
+    color: #000;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    padding: 10px;
+    background-color: #fac8a5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #dbaa86;
+}
