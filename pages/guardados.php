@@ -19,7 +19,7 @@ $usuario_id = $_SESSION['usuario_id'] ?? 1; // Cambiar por el ID real del usuari
 $sql_favoritos = "
     SELECT p.id, p.nombre
     FROM publicacion p
-    INNER JOIN favoritos f ON p.id = f.publicacion_id";
+    INNER JOIN favoritos f ON p.id = f.id";
 
 // No necesitamos pasar el usuario_id aquí, porque no estamos filtrando
 $stmt = $conn->prepare($sql_favoritos);
@@ -36,7 +36,7 @@ $result_favoritos = $stmt->get_result();
     <link rel="stylesheet" href="../assets/css/guardados.css"> <!-- Enlace al archivo CSS -->
 </head>
 <body>
-    <?php include 'sideNav.php'; ?>
+<?php include 'topNavFinal.php'; ?>
     <div class="contenedor">
         <!-- Contenido principal -->
         <main class="principal">

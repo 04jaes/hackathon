@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 $query = isset($_POST['query']) ? $_POST['query'] : '';
 
 // Preparar la consulta
-$sql = "SELECT nombre FROM publicacion WHERE nombre LIKE ?";
+$sql = "SELECT id, nombre FROM publicacion WHERE nombre LIKE ?";
 $stmt = $conn->prepare($sql);
 $searchTerm = "%" . $query . "%"; // Utilizar el comodín % para buscar en cualquier parte
 $stmt->bind_param("s", $searchTerm);
@@ -26,13 +26,18 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 // Mostrar los resultados
+echo '<div class="visto-items">';
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        echo "<div class='resultado-item'>" . htmlspecialchars($row['nombre']) . "</div>";
+        echo '<a href="info.php?id=' . htmlspecialchars($row['id']) . '" class="item">';
+        echo '<img src="' . (isset($row['imagen']) ? htmlspecialchars($row['imagen']) : '../assets/img/fotoejemplo.jpg') . '" alt="Imagen">';
+        echo '<p>' . htmlspecialchars($row['nombre']) . '</p>';
+        echo '</a>';
     }
 } else {
-    echo "<p>No se encontraron resultados.</p>";
+    echo '<p>No se encontraron resultados.</p>';
 }
+echo '</div>';
 
 // Cerrar la conexión
 $stmt->close();

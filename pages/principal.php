@@ -12,23 +12,20 @@ if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
 
-// Consulta para obtener publicaciones recientemente vistas
-$sql_visto_recientemente = "SELECT id, nombre FROM publicacion ORDER BY FechaCreacion DESC LIMIT 3";
-$result_visto_recientemente = $conn->query($sql_visto_recientemente);
-
 // Consulta para obtener categorías (basado en la tabla 'tipoobjeto')
-$sql_categorias = "SELECT tipo FROM tipoobjeto";
+$sql_categorias = "SELECT id, tipo FROM tipoobjeto";
 $result_categorias = $conn->query($sql_categorias);
-
-// Consulta para obtener artículos
-$sql_articulos = "SELECT id, nombre FROM publicacion"; // Ajusta según tu tabla
-$result_articulos = $conn->query($sql_articulos);
 
 // Inicializar las variables para los artículos
 $articulos_mostrados = 0;  // Contador de artículos mostrados
 $max_articulos_mostrar = 6; // Número máximo de artículos a mostrar
-?>
 
+session_start();
+if (!isset($_SESSION['loggedin']) || !$_SESSION['loggedin']) {
+    header('Location: login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -40,11 +37,10 @@ $max_articulos_mostrar = 6; // Número máximo de artículos a mostrar
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
-</head>
 <body style="padding: 0;">
     <div class="contenedor">
         <!-- Barra lateral -->
-        <?php include 'sideNav.php'; ?>
+        <?php include 'topNavFinal.php'; ?>
 
         <!-- Contenido principal -->
         <main class="principal">
@@ -56,139 +52,94 @@ $max_articulos_mostrar = 6; // Número máximo de artículos a mostrar
 
             <!-- Sección de "Visto recientemente" -->
             <section class="visto-recientemente">
-                <h2>Visto recientemente</h2>
-                <div class="visto-items">
-                    <?php if ($result_visto_recientemente && $result_visto_recientemente->num_rows > 0): ?>
-                        <?php while($row = $result_visto_recientemente->fetch_assoc()): ?>
-                            <a href="info.php?id=<?php echo $row['id']; ?>" class="item">
-                                <img src="<?php echo isset($row['imagen']) ? $row['imagen'] : '../assets/img/fotoejemplo.jpg'; ?>" alt="Imagen">
-                                <p><?php echo $row['nombre']; ?></p>
-                            </a>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No hay publicaciones recientes.</p>
-                    <?php endif; ?>
-                </div>
+    <h2>CATÁLOGO</h2>
+    <div class="visto-items">
+    <?php if ($result_categorias && $result_categorias->num_rows > 0): ?>
+        <?php while($row = $result_categorias->fetch_assoc()): ?>
+            <a href="categoria_productos.php?tipo=<?php echo urlencode($row['tipo']); ?>" class="btn-categoria">
+                <img src="../assets/img/cocina.jpeg" alt="<?php echo htmlspecialchars($row['tipo']); ?>" />
+                <p><?php echo htmlspecialchars($row['tipo']); ?></p>
+            </a>
+        <?php endwhile; ?>
+    <?php else: ?>
+        <p>No hay publicaciones recientes.</p>
+    <?php endif; ?>
+    <a href = "subida.php" class = "subida">+</a>
+
+</div>
+
             </section>
 
-            <!-- Sección de categorías -->
-            <section class="categorias">
-                <h3>Categorías</h3>
-                <div class="categorias-items">
-                    <?php if ($result_categorias && $result_categorias->num_rows > 0): ?>
-                        <?php while($row = $result_categorias->fetch_assoc()): ?>
-                            <a href="#" class="categoria">
-                                <p><?php echo $row['tipo']; ?></p>
-                            </a>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <p>No hay categorías disponibles.</p>
-                    <?php endif; ?>
-                </div>
-            </section>
-
-            <!-- Sección de Artículos Disponibles -->
-            <section class="articulos-disponibles">
-                <h2>Artículos Disponibles</h2>
-                <div class="articulo-items">
-                    <?php
-                    if ($result_articulos && $result_articulos->num_rows > 0): 
-                        $articulos = $result_articulos->fetch_all(MYSQLI_ASSOC); 
-
-                        foreach ($articulos as $row): 
-                            if ($articulos_mostrados < $max_articulos_mostrar): ?>
-                                <div class="item">
-                                    <a href="info.php?id=<?php echo $row['id']; ?>">
-                                        <img src="<?php echo isset($row['imagen']) ? $row['imagen'] : '../assets/img/fotoejemplo.jpg'; ?>" alt="Imagen">
-                                        <p><?php echo $row['nombre']; ?></p>
-                                    </a>
-                                    <!-- Estrella para añadir a favoritos -->
-                                    <span class="favorito-icon" data-id="<?php echo $row['id']; ?>">
-                                        <i class="fas fa-star"></i> <!-- Aquí se usa FontAwesome para la estrella -->
-                                    </span>
-                                </div>
-                                <?php 
-                                $articulos_mostrados++; 
-                            endif;
-                        endforeach;
-                    else: ?>
-                        <p>No hay artículos disponibles.</p>
-                    <?php endif; ?>
-                </div>
-                <?php if ($articulos_mostrados >= $max_articulos_mostrar): ?>
-                    <button id="cargar-mas" onclick="cargarMasArticulos()">Cargar más</button>
-                <?php endif; ?>
-            </section>
+            
         </main>
     </div>
 
     <script>
-        function buscarPublicacion() {
-            const query = document.getElementById('searchInput').value;
+        document.addEventListener("DOMContentLoaded", function () {
+    // Detectar la tecla Enter en el campo de entrada
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            buscarPublicacion();
+        }
+    });
 
-            if (query.length === 0) {
-                document.getElementById('resultadoBusqueda').innerHTML = '';
-                return;
-            }
+    // Función para realizar la búsqueda
+    function buscarPublicacion() {
+        const query = searchInput.value.trim();
 
-            const xhr = new XMLHttpRequest();
-            xhr.open('POST', 'buscar.php', true);
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-            xhr.onreadystatechange = function() {
-                if (this.readyState === 4 && this.status === 200) {
-                    document.getElementById('resultadoBusqueda').innerHTML = this.responseText;
-                }
-            };
-
-            xhr.send('query=' + encodeURIComponent(query));
+        if (query.length === 0) {
+            document.getElementById('resultadoBusqueda').innerHTML = '';
+            return;
         }
 
-        // Espera a que el documento esté listo
-        document.addEventListener("DOMContentLoaded", function() {
+        // Realizar solicitud AJAX para buscar publicaciones
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'buscar.php', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                document.getElementById('resultadoBusqueda').innerHTML = this.responseText;
+            }
+        };
+        xhr.send('query=' + encodeURIComponent(query));
+    }
+
+    // Funcionalidad para favoritos
     const favoritos = document.querySelectorAll('.favorito-icon');
-
     favoritos.forEach(favorito => {
-        favorito.addEventListener('click', function() {
-            const itemId = this.getAttribute('data-id'); // Obtén el ID del artículo
-            const estadoFavorito = this.classList.contains('favorito-activo') ? 0 : 1; // Cambia el estado del favorito
+        favorito.addEventListener('click', function () {
+            const itemId = this.getAttribute('data-id'); // Obtener el ID del artículo
+            const estadoFavorito = this.classList.contains('favorito-activo') ? 0 : 1; // Cambiar estado
 
-            // Agregar un alert para verificar los valores
-            alert(`Item ID: ${itemId}, Estado: ${estadoFavorito}`);
-
-            // Cambiar el estado visual
+            // Cambiar estado visual
             this.classList.toggle('favorito-activo', estadoFavorito === 1);
 
             // Llamada AJAX para actualizar el estado en la base de datos
             fetch('actualizar_favorito.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: `item_id=${itemId}&estado=${estadoFavorito}`
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Favorito actualizado');
-            } else {
-                alert('Error: ' + data.message);
-            }
-        })
-        .catch(error => {
-            console.error('Error en la solicitud AJAX:', error);
-            alert('Error en la solicitud AJAX');
-        });
-
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `item_id=${itemId}&estado=${estadoFavorito}`,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Favorito actualizado');
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud AJAX:', error);
+                    alert('Error en la solicitud AJAX');
+                });
         });
     });
 });
-
-
-
-
-
     </script>
+
 </body>
 </html>
 

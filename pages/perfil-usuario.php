@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="../assets/css/perfil-usuario.css">
 </head>
 <body>
-    <?php include 'sideNav.php'; ?>
-
+<?php include 'topNavFinal.php'; ?>
     <div class="profile-container">
         <!-- Contenedor en dos columnas -->
         <div class="profile-grid">

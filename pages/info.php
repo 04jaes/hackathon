@@ -45,7 +45,7 @@ $conn->close();
 </head>
 <body>
 <?php 
-    include 'sideNav.php';
+    include 'topNavFinal.php';
     include 'conexion.php';
     ?>
     <div class="container">
@@ -62,6 +62,10 @@ $conn->close();
                     <div class="action-buttons">
                         <button class="contact-seller">Contactar Vendedor</button>
                     </div>
+                    <div class="action-buttons">
+                        <a class="contact-seller" href="chat.php?id=<?php echo $id_publicacion; ?>" >Contactar Vendedor</a>
+</div>
+
                 </div>
             </div>
         </div>
